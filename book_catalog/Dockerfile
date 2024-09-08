@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 COPY . .
 
 # Install packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r ../book_catalog/requirements.txt
 
 EXPOSE 5000
 

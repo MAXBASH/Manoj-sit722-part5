@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 COPY . .
 
 # Install packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r ../inventory_management/requirements.txt
 
 EXPOSE 5000
 
