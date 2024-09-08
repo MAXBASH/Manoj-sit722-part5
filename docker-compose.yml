@@ -1,0 +1,23 @@
+version: "3"
+services:
+  book_catalog:
+    build:
+      context: ./book_catalog
+      platform: linux/amd64
+    ports:
+      - "5501:5000"
+    volumes:
+      - ./book_catalog:/usr/src/app
+    environment:
+      - UVICORN_APP=app.main:app
+
+  inventory_management:
+    build:
+      context: ./inventory_management
+      platform: linux/amd64
+    ports:
+      - "5502:5000"
+    volumes:
+      - ./inventory_management:/usr/src/app
+    environment:
+      - UVICORN_APP=app.main:app
