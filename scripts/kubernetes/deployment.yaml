@@ -20,6 +20,9 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
+          workingDir: /usr/src/app/book_catalog
+          command: ["uvicorn"]
+          args: ["app.main:app", "--host", "0.0.0.0", "--port", "5000"]
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -43,6 +46,9 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
+          workingDir: /usr/src/app/inventory_management
+          command: ["uvicorn"]
+          args: ["app.main:app", "--host", "0.0.0.0", "--port", "5000"]
 ---
 apiVersion: v1
 kind: Service
