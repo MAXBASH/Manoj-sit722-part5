@@ -1,4 +1,4 @@
-name: "Terraform"
+name: "Terraform Deployment"
 
 on:
   push:
@@ -13,24 +13,24 @@ on:
       - "terraform_scripts/**"
   workflow_dispatch:
 
-#Special permissions required for OIDC authentication
+# Special permissions required for OIDC authentication
 permissions:
   id-token: write
   contents: read
-  pull-requests: write
 
-#These environment variables are used by the terraform azure provider to setup OIDD authenticate.
+# Environment variables for Azure authentication using OIDC
 env:
   ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
   ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
   ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
 
 jobs:
-  terraform:
+  setup-and-deploy:
     runs-on: ubuntu-latest
     environment: production
+
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Setup Terraform
@@ -38,15 +38,21 @@ jobs:
         with:
           terraform_version: "1.5.6"
 
-      - name: Terraform Init
+      - name: Authenticate to Azure using OIDC
+        id: auth
+        uses: azure/github-actions-oidc-provider@v1
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ env.ARM_CLIENT_ID }}
+          tenant-id: ${{ env.ARM_TENANT_ID }}
+          subscription-id: ${{ env.ARM_SUBSCRIPTION_ID }}
+          allow-no-subscriptions: true
+          federated-token: ${{ steps.auth.outputs.oidc-token }}
+
+      - name: Terraform Initialize
         run: terraform init
 
-      - name: Terraform Validate
-        run: terraform validate
-
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -out=tfplan
-
       - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve
