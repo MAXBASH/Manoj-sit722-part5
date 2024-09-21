@@ -38,8 +38,11 @@ jobs:
 
       - name: Change to Terraform Scripts Directory
         run: |
+          pwd
+          ls
           cd terraform_scripts
           pwd
+          ls
 
       - name: Terraform Initialize
         run: terraform init
