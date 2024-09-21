@@ -37,12 +37,7 @@ jobs:
           terraform_version: "1.5.6"
 
       - name: Change to Terraform Scripts Directory
-        run: |
-          pwd
-          ls
-          cd terraform_scripts
-          pwd
-          ls
+        run: cd terraform_scripts
 
       - name: Terraform Initialize
         run: terraform init
