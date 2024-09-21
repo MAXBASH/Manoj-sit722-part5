@@ -11,6 +11,7 @@ on:
       - main
     paths:
       - "terraform_scripts/**"
+  workflow_dispatch:
 
 #Special permissions required for OIDC authentication
 permissions:
