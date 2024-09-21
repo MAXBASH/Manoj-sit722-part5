@@ -13,12 +13,10 @@ on:
       - "terraform_scripts/**"
   workflow_dispatch:
 
-# Special permissions required for OIDC authentication
 permissions:
   id-token: write
   contents: read
 
-# Environment variables for Azure authentication using OIDC
 env:
   ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
   ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
@@ -38,10 +36,6 @@ jobs:
         with:
           terraform_version: "1.5.6"
 
-      - name: Authenticate to Azure using OIDC
-        id: auth
-        uses: azure/github-actions-oidc-provider@v1
-
       - name: Azure Login
         uses: azure/login@v1
         with:
@@ -49,7 +43,6 @@ jobs:
           tenant-id: ${{ env.ARM_TENANT_ID }}
           subscription-id: ${{ env.ARM_SUBSCRIPTION_ID }}
           allow-no-subscriptions: true
-          federated-token: ${{ steps.auth.outputs.oidc-token }}
 
       - name: Terraform Initialize
         run: terraform init
