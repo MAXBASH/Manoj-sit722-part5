@@ -2,6 +2,6 @@
 # Creates a resource group
 #
 resource "azurerm_resource_group" "part5" {
-  name     = var.app_name
+  name     = "sit722projpart5"
   location = var.location
 }
