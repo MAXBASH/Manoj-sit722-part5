@@ -3,10 +3,10 @@
 #
 resource "azurerm_kubernetes_cluster" "cluster" {
     name                = "sit722projpart5"
-    location            = var.location
+    location            = "australiasoutheast"
     resource_group_name = azurerm_resource_group.part5.name
     dns_prefix          = "sit722projpart5"
-    kubernetes_version  = var.kubernetes_version
+    kubernetes_version  = "1.31.0"
 
     default_node_pool {
         name            = "default"
