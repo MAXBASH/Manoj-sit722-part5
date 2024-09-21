@@ -39,7 +39,7 @@ jobs:
       - name: Change to Terraform Scripts Directory
         run: |
           cd terraform_scripts
-          echo pwd
+          pwd
 
       - name: Terraform Initialize
         run: terraform init
