@@ -2,11 +2,11 @@
 # Creates Kubernetes cluster on Azure.
 #
 resource "azurerm_kubernetes_cluster" "cluster" {
-    name                = "sit722projpart5"
-    location            = "australiasoutheast"
+    name                = var.app_name
+    location            = var.location
     resource_group_name = azurerm_resource_group.part5.name
     dns_prefix          = "sit722projpart5"
-    kubernetes_version  = "1.30.3"
+    kubernetes_version  = var.kubernetes_version
 
     default_node_pool {
         name            = "default"
