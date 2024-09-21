@@ -46,10 +46,13 @@ jobs:
 
       - name: Terraform Initialize
         run: terraform init
+        working-directory: ./terraform_scripts
 
       - name: Terraform Plan
         id: plan
         run: terraform plan -out=tfplan
+        working-directory: ./terraform_scripts
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
+        working-directory: ./terraform_scripts
