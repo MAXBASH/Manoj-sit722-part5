@@ -67,6 +67,10 @@ jobs:
             exit 0
           fi
 
+      # Add the verbose Terraform plan step here
+      - name: Terraform Plan Verbose
+        run: terraform plan -var="app_name=${{ env.APP_NAME }}" -var="kubernetes_version=${{ env.KUBERNETES_VERSION }}"
+
       # Save plan to artifacts
       - name: Publish Terraform Plan
         uses: actions/upload-artifact@v4
