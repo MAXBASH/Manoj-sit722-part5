@@ -14,6 +14,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - "terraform_scripts/**"
 
   #
   # Allows deployment to be invoked manually through the GitHub Actions user interface.
